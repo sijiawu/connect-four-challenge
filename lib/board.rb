@@ -59,7 +59,12 @@ class Board
   end
 
   def game_won?
-    @columns.each do |column|
+    horizontal = @columns.transpose
+    game_won_vertical(@columns) or game_won_vertical(horizontal) or game_won_diagonal(@columns)
+  end
+
+  def game_won_vertical(columns)
+    columns.each do |column|
       winning_player = nil
       streak = 0
       previous_cell = nil
@@ -75,5 +80,11 @@ class Board
       end
     end
     return false
+  end 
+
+
+  def game_won_diagonal(columns)
+    return false
   end
+
 end
