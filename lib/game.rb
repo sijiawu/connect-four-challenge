@@ -27,8 +27,14 @@ class Game
         end 
          
         @board.print_grid
+
+        if @board.game_won?
+          break
+        end
       end
     end
+
+    puts "#{@current_player} has won the game!"
   end
 
   def get_column
@@ -39,5 +45,5 @@ class Game
       print "Please choose a valid column number: "
       get_column
     end
-  end 
+  end
 end

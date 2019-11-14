@@ -59,6 +59,21 @@ class Board
   end
 
   def game_won?
-    false
+    @columns.each do |column|
+      winning_player = nil
+      streak = 0
+      previous_cell = nil
+      column.each do |cell|
+        if !cell.empty? and previous_cell == cell 
+          streak += 1
+          winning_player = cell
+          if streak == 3
+            return true
+          end
+        end
+        previous_cell = cell
+      end
+    end
+    return false
   end
 end
