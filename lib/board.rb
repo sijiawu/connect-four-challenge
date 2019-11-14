@@ -13,7 +13,7 @@ class Board
   def drop_checker(color, column_index)
     column = @columns[column_index]
     unless column.kind_of?(Array)
-      return false 
+      return false
     end
     for index in 0..column.size do
       if column[index+1].nil? or not column[index+1].empty?
@@ -22,7 +22,7 @@ class Board
           @columns[column_index] = column
 
           return true
-        else 
+        else
           return false
         end
       end
@@ -69,7 +69,7 @@ class Board
       streak = 0
       previous_cell = nil
       column.each do |cell|
-        if !cell.empty? and previous_cell == cell 
+        if !cell.empty? and previous_cell == cell
           streak += 1
           winning_player = cell
           if streak == 3
@@ -80,11 +80,37 @@ class Board
       end
     end
     return false
-  end 
+  end
 
 
   def game_won_diagonal(columns)
-    return false
+    for x in 0..5
+      for y in 0..6
+        if check_diagonal(columns, x, y)
+          return true
+        end
+      end
+    end
   end
 
+  def check_diagonal(grid, x, y)
+    winning_player = nil
+    streak = 0
+    previous_cell = nil
+    for offset in 0..3
+      cell = grid[x + offset][y + offset]
+      if cell.nil?
+        break
+      end
+      if !cell.empty? and previous_cell == cell
+        streak += 1
+        winning_player = cell
+        if streak == 3
+          return true
+        end
+      end
+      previous_cell = cell
+    end
+    return false
+  end
 end
