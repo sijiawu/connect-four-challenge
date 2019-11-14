@@ -91,6 +91,7 @@ class Board
         end
       end
     end
+    return false
   end
 
   def check_diagonal(grid, x, y)
@@ -98,11 +99,11 @@ class Board
     streak = 0
     previous_cell = nil
     for offset in 0..3
-      cell = grid[x + offset][y + offset]
+      cell = grid[x + offset][y + offset] rescue nil
       if cell.nil?
         break
       end
-      if !cell.empty? and previous_cell == cell
+      if not cell.empty? and previous_cell == cell
         streak += 1
         winning_player = cell
         if streak == 3
