@@ -4,27 +4,29 @@ require 'tty-table'
 
 class Board
   attr_reader :table
-  attr_accessor :rows
+  attr_accessor :columns
 
   def initialize
     generate_board
   end
 
-  def drop_checker(color, column)
+  def drop_checker(color, column_index)
+    column = columns[column_index]
+    # @TODO Fill out rest of this
   end
 
   def generate_board
-    rows = []
-    6.times do
-      rows << []
+    columns = []
+    7.times do
+      columns << []
     end
 
-    rows.each do |r|
-      7.times do
+    columns.each do |r|
+      6.times do
         r << empty_string
       end
     end
-    @rows = rows
+    @columns = columns
   end
 
   def empty_string
@@ -36,7 +38,8 @@ class Board
   end
 
   def print_grid
-    @table = TTY::Table.new headers, @rows
+    rows = @columns.transpose
+    @table = TTY::Table.new headers, rows
     puts @table.render(:ascii, padding: [1, 2, 1, 2])
   end
 

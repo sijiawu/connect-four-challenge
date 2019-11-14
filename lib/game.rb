@@ -12,5 +12,6 @@ class Game
 
   def start
     puts 'A new game has begun!'
+    @board.drop_checker(:black, 1)
   end
 end
