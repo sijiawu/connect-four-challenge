@@ -12,11 +12,19 @@ class Board
 
   def drop_checker(color, column_index)
     column = @columns[column_index]
+    unless column.kind_of?(Array)
+      return false 
+    end
     for index in 0..column.size do
       if column[index+1].nil? or not column[index+1].empty?
-        column[index] = color
-        @columns[column_index] = column
-        return true
+        if column[index].empty?
+          column[index] = color
+          @columns[column_index] = column
+
+          return true
+        else 
+          return false
+        end
       end
     end
     return false

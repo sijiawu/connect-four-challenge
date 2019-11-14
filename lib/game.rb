@@ -14,10 +14,30 @@ class Game
 
   def start
     puts 'A new game has begun!'
-    @players.each do |player|
-      @current_player = player
-      @board.drop_checker(@current_player, 1)
+    while !@board.game_won?
+      @players.each do |player|
+        @current_player = player
+        print "Player #{player} - please choose a column: "
+
+        until @board.drop_checker(@current_player, get_column) do 
+          puts "Invalid column selection"
+          print "Player #{player} - please choose a different column: "
+
+          column_input = gets.chomp
+        end 
+         
+        @board.print_grid
+      end
     end
-    @board.print_grid
   end
+
+  def get_column
+    begin
+      column_input = gets.chomp
+      column = Integer(column_input)
+    rescue 
+      print "Please choose a valid column number: "
+      get_column
+    end
+  end 
 end
