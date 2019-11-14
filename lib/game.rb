@@ -6,12 +6,14 @@ require_relative 'board'
 class Game
   def initialize
     @board = Board.new
-    @current_player = :black
+    @current_player = :X
     @board.print_grid
   end
 
   def start
     puts 'A new game has begun!'
-    @board.drop_checker(:black, 1)
+    @board.drop_checker(@current_player, 1)
+    @board.drop_checker(@current_player, 1)
+    @board.print_grid
   end
 end

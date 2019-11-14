@@ -11,8 +11,15 @@ class Board
   end
 
   def drop_checker(color, column_index)
-    column = columns[column_index]
-    # @TODO Fill out rest of this
+    column = @columns[column_index]
+    for index in 0..column.size do
+      if column[index+1].nil? or not column[index+1].empty?
+        column[index] = color
+        @columns[column_index] = column
+        return true
+      end
+    end
+    return false
   end
 
   def generate_board
